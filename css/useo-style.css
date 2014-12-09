@@ -1,0 +1,39 @@
+.form-box{
+    padding-top:1%;
+    padding-bottom: 1%;
+    overflow: hidden;
+    clear:both;
+}
+
+.caja{
+    clear:both;
+    margin:5% 2% 2% 2%;
+}
+
+@media(max-width:768px){
+    .form-box label, .form-box input{
+        display: block;
+        width:98%;
+        margin:1%;
+    }
+}
+
+@media(min-width:768px){
+    form{
+        max-width:80%;
+    }
+
+    .form-box label, .form-box-check label{
+        float:left;
+        width:40%;
+        margin:0;
+        padding-right:1em;
+        text-align:right;
+    }
+
+    .form-box input{
+        float:left;
+        width:50%;
+        margin:0;
+    }
+}
