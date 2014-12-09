@@ -16,6 +16,8 @@ and many other web services, Twitter Card, description and author metatags, etc.
 
 It also easily allows you to add the necesary tags to validate your website with Google Webmaster Tools, Google Plus and Bing Webmaster Tools.
 
+It alsow allows you to add a custom description (used for the respective metatags) to every post and page, directly in the Post/Page Edit Screen.
+
 In a simply formular, you can:
 
 *   Configure and add metatags
