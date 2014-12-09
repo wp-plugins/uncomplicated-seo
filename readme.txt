@@ -1,6 +1,6 @@
 === Uncomplicated SEO ===
 Contributors: antsanchez
-Tags: seo, metatags
+Tags: seo, metatags, open graph, twitter card, publisher, description 
 Requires at least: 3.0.1
 Tested up to: 4.1
 Stable tag: 1.0
@@ -16,7 +16,7 @@ and many other web services, Twitter Card, description and author metatags, etc.
 
 It also easily allows you to add the necesary tags to validate your website with Google Webmaster Tools, Google Plus and Bing Webmaster Tools.
 
-It alsow allows you to add a custom description (used for the respective metatags) to every post and page, directly in the Post/Page Edit Screen.
+It also allows you to add a custom description (used for the respective metatags) to every post and page, directly in the Post/Page Edit Screen.
 
 In a simple formular, you can:
 
