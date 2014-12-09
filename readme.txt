@@ -18,7 +18,7 @@ It also easily allows you to add the necesary tags to validate your website with
 
 It alsow allows you to add a custom description (used for the respective metatags) to every post and page, directly in the Post/Page Edit Screen.
 
-In a simply formular, you can:
+In a simple formular, you can:
 
 *   Configure and add metatags
 *   Configure and add Open Graph metatags
