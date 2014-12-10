@@ -118,10 +118,6 @@ function uncomplicated_seo_main_function(){
     / Functions
     /--------------------------------*/
 
-    if($uc_options["google"] or $uc_options['webmastergoogle'] or $uc_options['webmasterbing']){
-        echo "<!-- Validation Tags - Uncomplicated SEO Plugin --!>\n";
-    }
-
     if(!empty($uc_options['google'])){
         $publisher = $uc_options['google'];
         echo "<link href='$publisher' rel='publisher' />\n";;
