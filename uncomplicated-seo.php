@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uncomplicated SEO
  * Description: Add the most important attributes to your website to have a propper SEO
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -174,7 +174,6 @@ add_action('wp_head', 'uncomplicated_seo_main_function');
 // Print Meta Tags
 function uncomplicated_seo_meta_tags($description, $author){
     
-    echo "<!-- Meta Tags - Uncomplicated SEO Plugin --!>\n";
     echo "<meta name='description' content='$description' />\n";
     echo "<meta name='author' content='$author' />\n";
 }
@@ -182,7 +181,6 @@ function uncomplicated_seo_meta_tags($description, $author){
 // Print Open Graph Metadata
 function uncomplicated_seo_open_graph($title, $description, $type, $image, $url, $image, $post_author, $published_time, $modified_time){
    
-    echo "\n<!-- Open Graph Metadata - Uncomplicated SEO Plugin --!>\n";
     echo "<meta property='og:title' content='$title' />\n";
     echo "<meta property='og:description' content='$description' />\n";
     echo "<meta property='og:type' content='$type' />\n";
@@ -199,7 +197,6 @@ function uncomplicated_seo_open_graph($title, $description, $type, $image, $url,
 // Print Sumary Twitter Card
 function uncomplicated_seo_twitter_card($twitter_user, $title, $description, $url, $image){
 
-    echo "\n<!-- Twitter Card - Uncomplicated SEO Plugin --!>\n";
     echo "<meta name='twitter:card' content='sumary' />\n";
     echo "<meta name='twitter:site' content='$twitter_user' />\n";
     echo "<meta name='twitter:title' content='$title' />\n";

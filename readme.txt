@@ -3,7 +3,7 @@ Contributors: antsanchez
 Tags: seo, metatags, open graph, twitter card, publisher, description 
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,9 @@ If no description is found, the site description will be used on the front page 
 1. Uncomplicated SEO options form
 
 == Changelog ==
+
+= 1.0.1 =
+Fixed an small bug with the metatags
 
 = 1.0 =
 * First published version.
