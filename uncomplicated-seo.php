@@ -73,6 +73,7 @@ function uncomplicated_seo_main_function(){
         $uc_options['author'] = esc_attr($saved_options['author']);
         $uc_options['type'] = esc_attr($saved_options['type']);
         $uc_options['metadata'] = esc_attr($saved_options['metadata']);
+        $uc_options['google'] = esc_html($saved_options['google']);
         $uc_options['opengraph'] = esc_attr($saved_options['opengraph']);
         $uc_options['twittercard'] = esc_attr($saved_options['twittercard']);
         $uc_options['webmastergoogle'] = esc_attr($saved_options['webmastergoogle']);
