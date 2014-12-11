@@ -2,6 +2,9 @@
 add_action( 'admin_init', 'uncomplicated_seo_setup' );
 add_action('admin_menu', 'uncomplicated_seo_menu');
 
+/*------------
+/ Setup
+/-----------*/
 function uncomplicated_seo_setup(){
     wp_register_style( 'uncomplicatedseostyle', plugins_url('css/useo-style.css', dirname(__FILE__)) );
 }
@@ -17,8 +20,13 @@ function uncomplicated_seo_styles() {
         */
        wp_enqueue_style( 'uncomplicatedseostyle' );
 }
+/*------------
+/ End Setup
+/-----------*/
 
-
+/*------------
+/ Form
+/-----------*/
 function uncomplicated_seo_options(){
     if ( !current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.', 'uncomplicated_seo' ) );
@@ -33,7 +41,10 @@ function uncomplicated_seo_options(){
                         'webmasterbing' => '',
                         'metadata' => '',
                         'opengraph' => '',
-                        'twittercard' => '');
+                        'twittercard' => '',
+						'headerscripts' =>'',
+						'footerscripts' => '',
+						'favicon' => '');
 
     if(isset($_POST['enviar'])){
     
@@ -49,13 +60,16 @@ function uncomplicated_seo_options(){
                             __('Bing Webmaster Verification Tag', 'uncomplicated_seo'),
                             __('Show Meta Tags', 'uncomplicated_seo'),
                             __('Show Open Graph Metadata', 'uncomplicated_seo'),
-                            __('Show Twitter Card', 'uncomplicated_seo')
+                            __('Show Twitter Card', 'uncomplicated_seo'),
+							__('Scripts inside head', 'uncomplicated_seo'),
+							__('Scripts inside body', 'uncomplicated_seo'),
+							__('Favicon', 'uncomplicated_seo')
                             );
         $a = 0;
         foreach($opciones as $id => $valor){
             if(isset($_POST[$id]) && !empty($_POST[$id])){
                 $opciones[$id] = $_POST[$id];
-                $mostrar = $opciones[$id];
+                $mostrar = esc_html($opciones[$id]);
                 if($mostrar == "1"){
                     $mostrar = __('Yes', 'uncomplicated_seo');
                 }
@@ -138,10 +152,35 @@ function uncomplicated_seo_options(){
             </div>
             </div>
 
+			<!-- Scripts Inside Head -->
+			<div class="caja">
+			<div class="form-box">
+                <label for="headerscripts"><?php echo __('Scripts that you would like to insert into HEAD.<br>PLEASE, TAKE CARE. DO NOT DO IT IF YOU ARE NOT SURE ABOUT WHAT YOU ARE DOING!!!', 'uncomplicated_seo'); ?></label>
+                <textarea rows="5" name="headerscripts" id="headerscripts"><?php echo $opciones_saved["headerscripts"]; ?></textarea>
+			</div>
+
+			<!-- Scripts Inside Head -->
+			<div class="form-box">
+                <label for="footerscripts"><?php echo __('Scripts that you would like to insert before closing BODY.<br>PLEASE, TAKE CARE. DO NOT DO IT IF YOU ARE NOT SURE ABOUT WHAT YOU ARE DOING!!!', 'uncomplicated_seo'); ?></label>
+                <textarea rows="5" name="footerscripts" id="footerscripts"><?php echo $opciones_saved["footerscripts"]; ?></textarea>
+			</div>
+			</div>
+
+			<!-- Favicon -->
+			<div class="caja">
+			<div class="form-box">
+                <label for="favicon"><?php echo __('Favicon (URL)', 'uncomplicated_seo'); ?></label>
+                <input type="text" name="favicon" id="favicon" value="<?php echo $opciones_saved["favicon"]; ?>" />
+            </div>
+			</div>
+
             <br><input type="submit" id="enviar" name="enviar" />
         </form>
     </div>
 <?php
     }
+/*------------
+/ End Form
+/-----------*/
 }
 ?>
