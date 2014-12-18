@@ -1,9 +1,9 @@
 === Uncomplicated SEO ===
 Contributors: antsanchez 
-Tags: seo, metatags, open graph, twitter card, publisher, description, scripts, google analytics, favicon
+Tags: seo, metatags, open graph, twitter card, publisher, description, scripts, google analytics, favicon, canonical
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ your WordPress site.
 
 Uncomplicated SEO allows you to easily add the most wanted SEO attributes to
 your WordPress site, like Open Graph meta tags used for Facebook and many other
-web services, Twitter Card, description and author metatags, etc..
+web services, Twitter Card, description and author metatags, canonical link, etc..
 
 It also easily allows you to add the necesary tags to validate your website with
 Google Webmaster Tools, Google Plus and Bing Webmaster Tools, and insert
@@ -69,6 +69,9 @@ SEO](http://antsanchez.com/blog/uncomplicated-seo-wordpress-plugin/)**.
 1. Uncomplicated SEO options form
 
 == Changelog ==
+= 1.1.1 =
+* Added canonical link
+
 = 1.1.0 =
 * Added new features
 

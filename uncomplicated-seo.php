@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uncomplicated SEO
  * Description: Add the most important attributes to your website to have a propper SEO
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -144,6 +144,11 @@ function uncomplicated_seo_print_header(){
     /-------------------------*/
 
     echo "<!-- Uncomplicated SEO WordPress Plugin -->\n";
+
+    if(!empty($uc_options['url'])){
+        $url = $uc_options['url'];
+        echo "<link rel='canonical' href='$url' />\n";
+    }
 
     if(!empty($uc_options['favicon'])){
         $content = $uc_options['favicon'];
