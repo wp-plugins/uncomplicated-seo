@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uncomplicated SEO
  * Description: Add the most important attributes to your website to have a propper SEO
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -119,8 +119,10 @@ function uncomplicated_seo_print_header(){
     }else{
         $uc_options['description'] = get_post_meta($idpost, 'uncomplicated_seo_post_class', true);
         $uc_options['url'] = get_permalink();
-        $uc_options['published_time'] = date('c', strtotime($web_info->post_date_gmt));
-        $uc_options['modified_time'] = date('c', strtotime($web_info->post_modified_gmt));
+        if(is_single()){
+            $uc_options['published_time'] = date('c', strtotime($web_info->post_date_gmt));
+            $uc_options['modified_time'] = date('c', strtotime($web_info->post_modified_gmt));
+        }
         
         if(empty($uc_options['description'])){
             if(!empty($web_info->post_excerpt)){
