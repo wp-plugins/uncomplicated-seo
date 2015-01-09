@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uncomplicated SEO
  * Description: Add the most important attributes to your website to have a propper SEO
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -244,7 +244,7 @@ function uncomplicated_seo_open_graph($title, $description, $type, $image, $url,
 // Print Sumary Twitter Card
 function uncomplicated_seo_twitter_card($twitter_user, $title, $description, $url, $image){
 
-    echo "<meta name='twitter:card' content='sumary' />\n";
+    echo "<meta name='twitter:card' content='summary' />\n";
     echo "<meta name='twitter:site' content='$twitter_user' />\n";
     echo "<meta name='twitter:title' content='$title' />\n";
     echo "<meta name='twitter:description' content='$description' />\n";
