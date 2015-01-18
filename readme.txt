@@ -3,7 +3,7 @@ Contributors: antsanchez
 Tags: seo, metatags, open graph, twitter card, publisher, description, scripts, google analytics, favicon, canonical
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,9 @@ SEO](http://antsanchez.com/blog/uncomplicated-seo-wordpress-plugin/)**.
 1. Uncomplicated SEO options form
 
 == Changelog ==
+= 1.1.3 =
+* Facebook support improved
+
 = 1.1.3 =
 * Minor bug fixed
 

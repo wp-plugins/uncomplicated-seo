@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uncomplicated SEO
  * Description: Add the most important attributes to your website to have a propper SEO
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -174,8 +174,13 @@ function uncomplicated_seo_print_header(){
     
     // Meta Tags Printing Function
     if($uc_options["metadata"] == '1'){
-        uncomplicated_seo_meta_tags($uc_options['description'],
+        if($uc_options['post_author']){
+             uncomplicated_seo_meta_tags($uc_options['description'],
+                                    $uc_options['post_author']);
+        }else{
+            uncomplicated_seo_meta_tags($uc_options['description'],
                                     $uc_options['author']);
+        }
     }
 
     // Open Graph Metadata Printing Function
