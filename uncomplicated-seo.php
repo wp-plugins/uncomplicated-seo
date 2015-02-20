@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uncomplicated SEO
  * Description: Add the most important attributes to your website to have a propper SEO
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -55,6 +55,7 @@ function uncomplicated_seo_print_header(){
                         'metadata' => '',
                         'opengraph' => '',
                         'twittercard' => '',
+                        'socialicons' => '',
                         'image' => '',
                         'headerscripts' => '',
                         'favicon' => '');
@@ -87,6 +88,9 @@ function uncomplicated_seo_print_header(){
         if(isset($saved_options['favicon'])){
             $uc_options['favicon'] = esc_url($saved_options['favicon']);
         }
+        if(isset($saved_options['socialicons'])){
+            $uc_options['socialicons'] = esc_attr($saved_options['socialicons']);
+        }
         
     }
 
@@ -105,16 +109,50 @@ function uncomplicated_seo_print_header(){
     }
 
     // Featured Image
-    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $idpost, 'full'), 'full');
-    $uc_options['image'] = $image[0];
-    if(empty($uc_options['image'])){
+    if(is_home() || is_front_page()){
         $uc_options['image'] = get_header_image();
+    }else{
+        $image = wp_get_attachment_image_src( get_post_thumbnail_id( $idpost, 'full'), 'full');
+        $uc_options['image'] = $image[0];
+    }
+
+    if(empty($uc_options['image'])){
+            $uc_options['image'] = '';
     }
     
+    
     if(is_home() || is_front_page()){
+
         $uc_options['type'] = 'website';
         $uc_options['description'] = get_bloginfo('description');
         $uc_options['url'] = get_bloginfo('url');
+
+    }else if(is_category()){
+
+        $uc_options['type'] = 'website';
+        $uc_options['description'] = get_bloginfo('description');
+        $categories = get_terms( 'category' );
+        foreach($categories as $valor){
+            if(is_category($valor->name)){
+                $id = $valor->name;
+                $id = get_cat_id($id);
+            }
+        }
+        
+        $uc_options['url'] = get_category_link($id);
+
+    }else if(is_tag()){
+
+        $uc_options['type'] = 'website';
+        $uc_options['description'] = get_bloginfo('description');
+        $categories = get_terms( 'post_tag' );
+        foreach($categories as $valor){
+            if(is_tag($valor->name)){
+                $id = $valor->term_id;
+            }
+        }
+        
+        $uc_options['url'] = get_tag_link($id);
 
     }else{
         $uc_options['description'] = get_post_meta($idpost, 'uncomplicated_seo_post_class', true);
@@ -205,10 +243,29 @@ function uncomplicated_seo_print_header(){
                                         $uc_options['image']);
     }
 
+    if($uc_options["socialicons"] == '1'){
+        echo "<style>
+        #uc-seo-list{
+            list-style:none;
+            margin: 0;
+            padding: 0;
+        }
+        #uc-seo-list li{
+            float: left;
+            margin: 0.5em 1em;
+            overflown: hidden;
+        }
+        </style>";
+        echo "<script src='https://apis.google.com/js/platform.js' async defer>{lang: 'es'}</script>";
+        add_filter('the_content', 'ep_after_content');
+    }
+   
     // Google Analytics Script
     if(!empty($uc_options['headerscripts'])){
-        echo $uc_options['headerscripts'];
+        echo htmlspecialchars_decode($uc_options['headerscripts']);
     }
+
+    
 }
 add_action('wp_head', 'uncomplicated_seo_print_header');
 
@@ -216,7 +273,7 @@ add_action('wp_head', 'uncomplicated_seo_print_header');
 function uncomplicated_seo_print_footer(){
     $saved_options = get_option("uncomplicated_seo_saved");
     if(isset($saved_options['footerscripts'])){
-        echo $saved_options['footerscripts'];
+        echo htmlspecialchars_decode($saved_options['footerscripts']);
     }
 }
 add_action('wp_footer', 'uncomplicated_seo_print_footer');
@@ -257,6 +314,44 @@ function uncomplicated_seo_twitter_card($twitter_user, $title, $description, $ur
     echo "<meta name='twitter:description' content='$description' />\n";
     echo "<meta name='twitter:image' content='$image' />\n";
     echo "<meta name='twitter:url' concept='$url' />\n";
+}
+
+// Print Social Icons
+function ep_after_content( $content ) {
+	global $post;
+  
+  	if( $post && $post->post_type == 'post' && is_singular( 'post' ) && is_main_query() ) {
+  		$id = $post->ID;
+
+        $saved_options = get_option("uncomplicated_seo_saved");
+        $twitter_user = esc_attr($saved_options['twitter']);
+        $twitter_user = preg_replace("/@/", "", $twitter_user);
+        $link = get_permalink($id);
+		ob_start(); ?>
+
+        <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+		<div style="width:100%;float:left;">
+			<ul id="uc-seo-list">
+                <li>
+               <a href="https://twitter.com/share" class="twitter-share-button" data-via="<?php echo $twitter_user; ?>" data-size="large" data-count="none">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </li>            
+               <li><div class="fb-share-button" data-href="<?php echo $link; ?>" data-layout="button_count"></div></li>
+                <li><div class="g-plusone" data-annotation="none"></div></li>
+			</ul>
+		</div>
+
+		<?php $content .= ob_get_clean();
+	}
+	return $content;
 }
 
 ?>

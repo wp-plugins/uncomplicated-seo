@@ -42,6 +42,7 @@ function uncomplicated_seo_options(){
                         'metadata' => '',
                         'opengraph' => '',
                         'twittercard' => '',
+						'socialicons' => '',
 						'headerscripts' =>'',
 						'footerscripts' => '',
 						'favicon' => '');
@@ -61,6 +62,7 @@ function uncomplicated_seo_options(){
                             __('Show Meta Tags', 'uncomplicated_seo'),
                             __('Show Open Graph Metadata', 'uncomplicated_seo'),
                             __('Show Twitter Card', 'uncomplicated_seo'),
+							__('Show Social Icons', 'uncomplicated_seo'),
 							__('Scripts inside head', 'uncomplicated_seo'),
 							__('Scripts inside body', 'uncomplicated_seo'),
 							__('Favicon', 'uncomplicated_seo')
@@ -68,8 +70,13 @@ function uncomplicated_seo_options(){
         $a = 0;
         foreach($opciones as $id => $valor){
             if(isset($_POST[$id]) && !empty($_POST[$id])){
-                $opciones[$id] = $_POST[$id];
-                $mostrar = esc_html($opciones[$id]);
+				if($id == 'headerscripts' or $id == 'footerscripts'){
+					$opciones[$id] = stripslashes_deep($_POST[$id]);
+					$mostrar = $opciones[$id];
+				}else{
+					$opciones[$id] = $_POST[$id];
+					$mostrar = esc_html($opciones[$id]);
+				}
                 if($mostrar == "1"){
                     $mostrar = __('Yes', 'uncomplicated_seo');
                 }
@@ -151,6 +158,14 @@ function uncomplicated_seo_options(){
                 <input type="text" name="webmasterbing" id="webmasterbing" value="<?php echo $opciones_saved["webmasterbing"]; ?>" />
             </div>
             </div>
+
+			<!-- Social Icons -->
+			<div class="caja">
+            <div class="form-box-check">
+                <label for="socialicons"><?php echo __('Add Social Sharing Buttons?', 'uncomplicated_seo'); ?></label>
+                <input type="checkbox" name="socialicons" id="socialicons" value='1' <?php if($opciones_saved['socialicons'] == 1){ echo "checked";} ?> />
+            </div>
+			</div>
 
 			<!-- Scripts Inside Head -->
 			<div class="caja">
