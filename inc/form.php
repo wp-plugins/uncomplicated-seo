@@ -36,6 +36,7 @@ function uncomplicated_seo_options(){
 						'facebook' => '',
                         'author' => '',
                         'type' => '',
+						'fbimage' => '',
                         'google' => '',
                         'webmastergoogle' => '',
                         'webmasterbing' => '',
@@ -43,6 +44,7 @@ function uncomplicated_seo_options(){
                         'opengraph' => '',
                         'twittercard' => '',
 						'socialicons' => '',
+						'description' => '',
 						'headerscripts' =>'',
 						'footerscripts' => '',
 						'favicon' => '');
@@ -56,6 +58,7 @@ function uncomplicated_seo_options(){
 							__('Facebook Username', 'uncomplicated_seo'),
                             __('Author', 'uncomplicated_seo'),
                             __('Open Graph Type', 'uncomplicated_seo'),
+							__('Fall Back imagen', 'uncomplicated_seo'),
                             __('Google Publisher', 'uncomplicated_seo'),
                             __('Google Webmaster Verification Tag', 'uncomplicated_seo'),
                             __('Bing Webmaster Verification Tag', 'uncomplicated_seo'),
@@ -63,6 +66,7 @@ function uncomplicated_seo_options(){
                             __('Show Open Graph Metadata', 'uncomplicated_seo'),
                             __('Show Twitter Card', 'uncomplicated_seo'),
 							__('Show Social Icons', 'uncomplicated_seo'),
+							__('Description for Index', 'uncomplicated_seo'),
 							__('Scripts inside head', 'uncomplicated_seo'),
 							__('Scripts inside body', 'uncomplicated_seo'),
 							__('Favicon', 'uncomplicated_seo')
@@ -117,6 +121,10 @@ function uncomplicated_seo_options(){
                 <label for="facebook"><?php echo __('Facebook Site (URL)', 'uncomplicated_seo'); ?></label>
                 <input type="url" name="facebook" id="facebook" value="<?php echo $opciones_saved["facebook"]; ?>" />
             </div>
+			<div class="form-box">
+                <label for="fbimage"><?php echo __('Fallback Image for Open Graph and Twitter (URL) (200x200px)', 'uncomplicated_seo'); ?></label>
+                <input type="url" name="fbimage" id="fbimage" value="<?php echo $opciones_saved["fbimage"]; ?>" />
+            </div>
             </div>
 
             <!-- Twitter -->
@@ -166,6 +174,14 @@ function uncomplicated_seo_options(){
                 <input type="checkbox" name="socialicons" id="socialicons" value='1' <?php if($opciones_saved['socialicons'] == 1){ echo "checked";} ?> />
             </div>
 			</div>
+
+			<!-- Description -->
+			<div class="caja">
+            <div class="form-box">
+                <label for="author"><?php echo __('Description for Index (metatag)', 'uncomplicated_seo'); ?></label>
+                <input type="text" name="description" id="description" value="<?php echo $opciones_saved["description"]; ?>" maxlength="150" />
+            </div>
+            </div>
 
 			<!-- Scripts Inside Head -->
 			<div class="caja">

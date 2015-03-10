@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Uncomplicated SEO
- * Description: Add the most important attributes to your website to have a propper SEO
- * Version: 1.1.5
+ * Description: Add the most important attributes to your website to have a proper SEO
+ * Version: 1.1.6
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -47,6 +47,7 @@ function uncomplicated_seo_print_header(){
                         'facebook' => '',
                         'author' => '',
                         'type' => '',
+                        'fbimage' => '',
                         'published_time' => '',
                         'modified_time' => '',
                         'google' => '',
@@ -59,7 +60,9 @@ function uncomplicated_seo_print_header(){
                         'image' => '',
                         'headerscripts' => '',
                         'favicon' => '');
-    $uc_options = $opciones;
+
+    // Makes sure all options exist in $uc_options;
+    $uc_options = $opciones; 
 
 
     // General Options
@@ -91,7 +94,12 @@ function uncomplicated_seo_print_header(){
         if(isset($saved_options['socialicons'])){
             $uc_options['socialicons'] = esc_attr($saved_options['socialicons']);
         }
-        
+        if(isset($saved_options['fbimage'])){
+            $uc_options['fbimage'] = esc_url($saved_options['fbimage']);
+        }
+        if(isset($saved_options['description'])){
+            $uc_options['description'] = esc_attr($saved_options['description']);
+        }
     }
 
     // Author
@@ -110,27 +118,38 @@ function uncomplicated_seo_print_header(){
 
     // Featured Image
     if(is_home() || is_front_page()){
-        $uc_options['image'] = get_header_image();
+        if(!empty($uc_options['fbimage'])){
+            $uc_options['image'] = $uc_options['fbimage'];
+        }else{
+            $uc_options['image'] = get_header_image();
+        }
     }else{
         $image = wp_get_attachment_image_src( get_post_thumbnail_id( $idpost, 'full'), 'full');
         $uc_options['image'] = $image[0];
     }
 
     if(empty($uc_options['image'])){
-            $uc_options['image'] = '';
+        if(!empty($uc_options['fbimage'])){
+            $uc_options['image'] = $uc_options['fbimage'];
+        }else{
+            $uc_options['image'] = get_header_image();
+        }
     }
-    
     
     if(is_home() || is_front_page()){
 
         $uc_options['type'] = 'website';
-        $uc_options['description'] = get_bloginfo('description');
+        if(empty($uc_options['description'])){
+            $uc_options['description'] = get_bloginfo('description');
+        }
         $uc_options['url'] = get_bloginfo('url');
 
     }else if(is_category()){
 
         $uc_options['type'] = 'website';
-        $uc_options['description'] = get_bloginfo('description');
+        if(empty($uc_options['description'])){
+            $uc_options['description'] = get_bloginfo('description');
+        }
         $categories = get_terms( 'category' );
         foreach($categories as $valor){
             if(is_category($valor->name)){
@@ -144,7 +163,9 @@ function uncomplicated_seo_print_header(){
     }else if(is_tag()){
 
         $uc_options['type'] = 'website';
-        $uc_options['description'] = get_bloginfo('description');
+        if(empty($uc_options['description'])){
+            $uc_options['description'] = get_bloginfo('description');
+        }
         $categories = get_terms( 'post_tag' );
         foreach($categories as $valor){
             if(is_tag($valor->name)){
@@ -166,7 +187,9 @@ function uncomplicated_seo_print_header(){
             if(!empty($web_info->post_excerpt)){
                 $uc_options['description'] = $web_info->post_excerpt;
             }else{
-                $uc_options['description'] = get_bloginfo('description');
+                if(empty($uc_options['description'])){
+                    $uc_options['description'] = get_bloginfo('description');
+                }
             }
         }
 
@@ -185,10 +208,10 @@ function uncomplicated_seo_print_header(){
 
     echo "<!-- Uncomplicated SEO WordPress Plugin -->\n";
 
-    if(!empty($uc_options['url'])){
+    /*if(!empty($uc_options['url'])){
         $url = $uc_options['url'];
         echo "<link rel='canonical' href='$url' />\n";
-    }
+    }*/
 
     if(!empty($uc_options['favicon'])){
         $content = $uc_options['favicon'];
@@ -252,11 +275,26 @@ function uncomplicated_seo_print_header(){
         }
         #uc-seo-list li{
             float: left;
+            height: 74px;
             margin: 0.5em 1em;
             overflown: hidden;
         }
         </style>";
-        echo "<script src='https://apis.google.com/js/platform.js' async defer>{lang: 'es'}</script>";
+        echo "<script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = '//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.0';
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+          </script>
+          <script type='text/javascript'>
+            (function() {
+              var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;
+              li.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + '//platform.stumbleupon.com/1/widgets.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);
+            })();
+          </script><script src='https://apis.google.com/js/platform.js' async defer>{lang: 'es'}</script>";
         add_filter('the_content', 'ep_after_content');
     }
    
@@ -330,13 +368,6 @@ function ep_after_content( $content ) {
 		ob_start(); ?>
 
         <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 		<div style="width:100%;float:left;">
 			<ul id="uc-seo-list">
@@ -344,9 +375,11 @@ function ep_after_content( $content ) {
                <a href="https://twitter.com/share" class="twitter-share-button" data-via="<?php echo $twitter_user; ?>" data-size="large" data-count="none">Tweet</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                 </li>            
-               <li><div class="fb-share-button" data-href="<?php echo $link; ?>" data-layout="button_count"></div></li>
+                <li><div class="fb-share-button" data-href="<?php echo $link; ?>" data-layout="button_count"></div></li>
                 <li><div class="g-plusone" data-annotation="none"></div></li>
-			</ul>
+                <li><a href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" /></a></li>
+                <li><su:badge layout="2"></su:badge></li>
+            </ul>
 		</div>
 
 		<?php $content .= ob_get_clean();

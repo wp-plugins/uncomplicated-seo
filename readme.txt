@@ -3,7 +3,7 @@ Contributors: antsanchez
 Tags: seo, metatags, open graph, twitter card, share buttons, sharing, publisher, description, scripts, google analytics, favicon, canonical
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.1.5
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,9 @@ SEO](http://antsanchez.com/uncomplicated-seo-wordpress-plugin/)**.
 1. Uncomplicated SEO options form
 
 == Changelog ==
+= 1.1.6 =
+* Some minor changes to improve functionality
+
 = 1.1.5 =
 * Social Sharing Buttons for Facebook, Twitter and Google added
 * Better data validation
