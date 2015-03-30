@@ -3,7 +3,7 @@ Contributors: antsanchez
 Tags: seo, metatags, open graph, twitter card, share buttons, sharing, publisher, description, scripts, google analytics, favicon, canonical
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
