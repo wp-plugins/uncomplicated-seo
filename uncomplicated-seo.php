@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uncomplicated SEO
  * Description: Add the most important attributes to your website to have a proper SEO
- * Version: 1.1.6
+ * Version: 1.1.8
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -147,9 +147,6 @@ function uncomplicated_seo_print_header(){
     }else if(is_category()){
 
         $uc_options['type'] = 'website';
-        if(empty($uc_options['description'])){
-            $uc_options['description'] = get_bloginfo('description');
-        }
         $categories = get_terms( 'category' );
         foreach($categories as $valor){
             if(is_category($valor->name)){
@@ -157,20 +154,25 @@ function uncomplicated_seo_print_header(){
                 $id = get_cat_id($id);
             }
         }
+        $uc_options['description'] = sanitize_text_field(category_description($id));
+        if(empty($uc_options['description'])){
+            $uc_options['description'] = get_bloginfo('description');
+        }
         
         $uc_options['url'] = get_category_link($id);
 
     }else if(is_tag()){
 
         $uc_options['type'] = 'website';
-        if(empty($uc_options['description'])){
-            $uc_options['description'] = get_bloginfo('description');
-        }
         $categories = get_terms( 'post_tag' );
         foreach($categories as $valor){
             if(is_tag($valor->name)){
                 $id = $valor->term_id;
             }
+        }
+        $uc_options['description'] = sanitize_text_field(tag_description($id));
+        if(empty($uc_options['description'])){
+            $uc_options['description'] = get_bloginfo('description');
         }
         
         $uc_options['url'] = get_tag_link($id);
@@ -266,7 +268,7 @@ function uncomplicated_seo_print_header(){
                                         $uc_options['image']);
     }
 
-    if($uc_options["socialicons"] == '1'){
+    if($uc_options["socialicons"] == '1' && is_single()){
         echo "<style>
         #uc-seo-list{
             list-style:none;

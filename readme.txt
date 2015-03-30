@@ -72,6 +72,9 @@ SEO](http://antsanchez.com/uncomplicated-seo-wordpress-plugin/)**.
 1. Uncomplicated SEO options form
 
 == Changelog ==
+= 1.1.7 =
+* Metadescription for categories
+
 = 1.1.6 =
 * Some minor changes to improve functionality
 
