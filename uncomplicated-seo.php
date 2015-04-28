@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uncomplicated SEO
  * Description: Add the most important attributes to your website to have a proper SEO
- * Version: 1.1.8
+ * Version: 1.1.9
  * Author: Antonio Sanchez
  * Author URI: http://antsanchez.com
  * Text Domain: uncomplicated-seo
@@ -68,7 +68,7 @@ function uncomplicated_seo_print_header(){
     // General Options
     $web_info = get_queried_object();
     $idpost = get_the_ID();
-    $uc_options['title'] = wp_title('', false, 'right');
+    $uc_options['title'] = wp_title('-', false, 'right');
 
     // Saved Options
     $saved_options = get_option("uncomplicated_seo_saved");
